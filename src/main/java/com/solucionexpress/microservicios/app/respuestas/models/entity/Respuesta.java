@@ -1,39 +1,42 @@
 package com.solucionexpress.microservicios.app.respuestas.models.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.solucionexpress.microservicios.commons.alumnos.models.entity.Alumno;
 import com.solucionexpress.microservicios.commons.examenes.models.entity.Pregunta;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "respuestas")
+@Document(collection ="respuestas")
 public class Respuesta {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+    private String id;
 
     private String texto;
     
     @Transient
     private Alumno alumno;
     
-    @Column(name = "alumno_id")
+
     private Long alumnoId;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @Transient
     private Pregunta pregunta;
+    
+    private Long preguntaId;
 
+    
 
-    public Long getId() {
-        return id;
-    }
+    public String getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getTexto() {
+	public String getTexto() {
         return texto;
     }
 
@@ -63,6 +66,14 @@ public class Respuesta {
 
 	public void setAlumnoId(Long alumnoId) {
 		this.alumnoId = alumnoId;
+	}
+
+	public Long getPreguntaId() {
+		return preguntaId;
+	}
+
+	public void setPreguntaId(Long preguntaId) {
+		this.preguntaId = preguntaId;
 	}
     
     
